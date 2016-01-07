@@ -46,7 +46,7 @@ return function (context, done) {
             // Actually create the comment
             request(requestData, function (error, response, body) {
                 if (!error && response.statusCode == 201) {
-                    return done(null, "Successfully created thank you comment at: " + body.html_url);
+                    return done(null, {"success": "Successfully created thank you comment at: " + body.html_url});
                 } else {
                     return done("Posting the thank you failed.");
                 }
