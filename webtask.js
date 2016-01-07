@@ -10,7 +10,7 @@ var request = require('request');
  * @param {callback} done
  * @returns {*}
  */
-module.exports = function (context, done) {
+return function (context, done) {
     // Easify github webhook payload
     var payload = context.webhook;
     if (payload.action != "opened") {
