@@ -14,7 +14,7 @@ return function (context, done) {
     // Easify github webhook payload
     var payload = context.webhook;
     if (payload.action != "opened") {
-        return done("The pull request was not opened.");
+        return done(null, {success: "No action to take, as the pull request was not opened."});
     }
 
     var username = payload.pull_request.user.login;
@@ -46,7 +46,10 @@ return function (context, done) {
             // Actually create the comment
             request(requestData, function (error, response, body) {
                 if (!error && response.statusCode == 201) {
-                    return done(null, {"success": "Successfully created thank you comment at: " + body.html_url});
+                    return done(null, {
+                        success: "Successfully created thank you comment at: " + body.html_url,
+                        comment_url: body.html_url
+                    });
                 } else {
                     return done("Posting the thank you failed.");
                 }
